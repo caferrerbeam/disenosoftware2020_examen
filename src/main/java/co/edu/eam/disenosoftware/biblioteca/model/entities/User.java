@@ -1,11 +1,21 @@
 package co.edu.eam.disenosoftware.biblioteca.model.entities;
 
-public class User {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 
-  private String identification;
+@Entity
+@Table(name = "usuarios")
+public class User implements Serializable {
 
-  private String name;
+  @Id
+  private String user_Identification;
 
-  private String lastName;
+  private String nombre_Usuario;
 
+  private String apellido_Usuario;
+
+  public User() {
+  }
 }

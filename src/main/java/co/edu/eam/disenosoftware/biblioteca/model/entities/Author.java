@@ -1,11 +1,21 @@
 package co.edu.eam.disenosoftware.biblioteca.model.entities;
 
-public class Author {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 
-  private Long id;
+@Entity
+@Table(name = "autores")
+public class Author implements Serializable {
 
-  private String lastName;
+  @Id
+  private Long codigo_Autor;
 
-  private String name;
+  private String apellido;
 
+  private String nombre;
+
+  public Author() {
+  }
 }
