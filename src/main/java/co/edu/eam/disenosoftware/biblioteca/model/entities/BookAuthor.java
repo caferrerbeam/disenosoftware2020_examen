@@ -1,7 +1,27 @@
 package co.edu.eam.disenosoftware.biblioteca.model.entities;
 
-public class BookAuthor {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import java.io.Serializable;
 
+@Entity
+@Table(name = "libro_autor")
+public class BookAuthor implements Serializable {
+
+  @Id
   private Long id;
 
+  @ManyToOne
+  @JoinColumn(name = "id_autor", referencedColumnName = "id")
+  private Author author;
+
+  @ManyToOne
+  @JoinColumn(name = "id:libro", referencedColumnName = "id")
+  private Book book;
+
+  public BookAuthor() {
+  }
 }
