@@ -13,6 +13,11 @@ public class BookRepository {
   @PersistenceContext
   private EntityManager em;
 
+  /**
+   * Consulta 1: libros por una editorial
+   * @param codePublisher
+   * @return
+   */
   public List<Book> getBooksByEditorialId(Long codePublisher) {
     String queryStr = "SELECT b FROM Book b WHERE b.publisher.code = :code";
 
@@ -20,6 +25,11 @@ public class BookRepository {
             .getResultList();
   }
 
+  /**
+   * Consulta 3: Libros de un autor
+   * @param authId
+   * @return
+   */
   public List<Book> getBooksByAuthorId(Long authId) {
     String queryStr = "SELECT ba.book FROM BookAuthor ba WHERE ba.author.id = :authId";
 

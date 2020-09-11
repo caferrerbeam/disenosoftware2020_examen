@@ -13,6 +13,11 @@ public class BorrowRepository {
   @PersistenceContext
   private EntityManager em;
 
+  /**
+   * Consulta 2: Préstamos de un usuario
+   * @param userIdentification
+   * @return
+   */
   public List<Borrow> getBorrowsByUserId(String userIdentification) {
     String queryStr = "SELECT b FROM Borrow b WHERE b.user.identification = :userIdentification";
 
@@ -20,6 +25,11 @@ public class BorrowRepository {
             .getResultList();
   }
 
+  /**
+   * Consutla 4: Préstamos de un libro
+   * @param bookCode
+   * @return
+   */
   public List<Borrow> getBorrowsByBookId(String bookCode) {
     String queryStr = "SELECT b FROM Borrow b WHERE b.book.code = :bookCode";
 

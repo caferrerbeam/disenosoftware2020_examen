@@ -14,6 +14,11 @@ public class AuthorRepository {
   @PersistenceContext
   private EntityManager em;
 
+  /**
+   * Consulta 5: Autores de un libro
+   * @param bookCode
+   * @return
+   */
   public List<Author> getBookAuthors(String bookCode){
 
     String queryStr = "SELECT auth.author FROM BookAuthor auth WHERE auth.book.code = :bookId";
