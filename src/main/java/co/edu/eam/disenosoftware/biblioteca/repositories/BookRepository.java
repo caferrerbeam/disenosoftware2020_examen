@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 @Component
@@ -20,7 +21,10 @@ public class BookRepository {
    * @return
    */
   public List<Book> getBooksByEditorialId(Long codePublisher) {
-    return null;
+    String queryStr = "SELECT book FROM Book book WHERE book.publisher.code = :codePublisher";
+    Query query = em.createQuery(queryStr);
+    query.setParameter("codePublisher", codePublisher);
+    return query.getResultList();
   }
 
   /**
@@ -30,7 +34,10 @@ public class BookRepository {
    * @return
    */
   public List<Book> getBooksByAuthorId(Long authId) {
-    return null;
+    String queryStr = "SELECT bookAuthor FROM BookAuthor bookAuthor WHERE bookAuthor.author.id = :authId";
+    Query query = em.createQuery(queryStr);
+    query.setParameter("authId", authId);
+    return query.getResultList();
   }
 
 }
