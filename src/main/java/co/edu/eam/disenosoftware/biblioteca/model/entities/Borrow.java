@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "Prestamos")
+@Table(name = "prestamo")
 public class Borrow implements Serializable {
 
   @Id

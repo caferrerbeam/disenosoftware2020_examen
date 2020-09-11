@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "editoriales")
+@Table(name = "editorial")
 public class Publisher implements Serializable {
 
   @Id

@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "libro_autores")
+@Table(name = "libro_autor")
 public class BookAuthor implements Serializable {
 
   @Id
