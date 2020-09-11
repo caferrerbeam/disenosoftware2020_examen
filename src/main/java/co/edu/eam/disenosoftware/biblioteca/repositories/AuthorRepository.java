@@ -5,9 +5,12 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Component
+@Transactional
 public class AuthorRepository {
 
   @PersistenceContext
@@ -20,7 +23,10 @@ public class AuthorRepository {
    * @return
    */
   public List<Author> getBookAuthors(String bookCode) {
+    String queryStr = "SELECT a FROM BookAuthor a where a.book.code = :coBbook";
+    Query query = em.createQuery(queryStr);
+    query.setParameter("coBbook", bookCode);
 
-    return null;
+    return query.getResultList();
   }
 }
