@@ -5,9 +5,12 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Component
+@Transactional
 public class BorrowRepository {
 
   @PersistenceContext
@@ -20,7 +23,10 @@ public class BorrowRepository {
    * @return
    */
   public List<Borrow> getBorrowsByUserId(String userIdentification) {
-    return null;
+    String quertyStr = "SEELECT borrow FROM Borrow borrow WHERE borrow.user.identification = :value";
+    Query query = em.createQuery(quertyStr);
+    query.setParameter("value", userIdentification);
+    return query.getResultList();
   }
 
   /**
@@ -30,7 +36,10 @@ public class BorrowRepository {
    * @return
    */
   public List<Borrow> getBorrowsByBookId(String bookCode) {
-    return null;
+    String quertyStr = "SELECT borrow FROM Borrow borrow WHERE borrow.book.code = :value";
+    Query query = em.createQuery(quertyStr);
+    query.setParameter("value", bookCode);
+    return query.getResultList();
   }
 
 }
