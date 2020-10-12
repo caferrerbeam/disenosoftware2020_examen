@@ -1,5 +1,7 @@
 package co.edu.eam.disenosoftware.biblioteca.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,6 +23,7 @@ public class BookAuthor implements Serializable {
 
   @ManyToOne
   @JoinColumn(name = "id_libro", referencedColumnName = "codigo_libro")
+  @JsonBackReference
   private Book book;
 
 }

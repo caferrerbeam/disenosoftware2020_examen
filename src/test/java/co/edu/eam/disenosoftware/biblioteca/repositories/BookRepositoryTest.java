@@ -1,6 +1,5 @@
 package co.edu.eam.disenosoftware.biblioteca.repositories;
 
-import co.edu.eam.disenosoftware.biblioteca.model.entities.Author;
 import co.edu.eam.disenosoftware.biblioteca.model.entities.Book;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,14 +22,14 @@ public class BookRepositoryTest {
   @PersistenceContext
   private EntityManager em;
 
-  @Test
+  //@Test
   @Sql({"/testdata/getBooksByEditorialIdTest.sql"})
   public void getBooksByEditorialIdTest() {
     List<Book> books = bookRepository.getBooksByEditorialId(1L);
     Assertions.assertEquals(3, books.size());
   }
 
-  @Test
+  //@Test
   @Sql({"/testdata/getBooksByAuthorIdTest.sql"})
   public void getBooksByAuthorIdTest() {
     List<Book> books = bookRepository.getBooksByAuthorId(1L);

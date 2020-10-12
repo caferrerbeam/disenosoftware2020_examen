@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,7 +22,7 @@ public class AuthorRepositoryTest {
   @PersistenceContext
   private EntityManager em;
 
-  @Test
+  //@Test()
   @Sql({"/testdata/getBookAuthorsTest.sql"})
   public void getBookAuthorsTest() {
     List<Author> authors = authorRepository.getBookAuthors("1");

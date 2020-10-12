@@ -16,6 +16,10 @@ public class BookRepository {
   @PersistenceContext
   private EntityManager em;
 
+  public Book find(String code) {
+    return em.find(Book.class, code);
+  }
+
   /**
    * Consulta 1: libros por una editorial
    *

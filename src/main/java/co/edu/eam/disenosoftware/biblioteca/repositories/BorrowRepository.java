@@ -43,5 +43,4 @@ public class BorrowRepository {
 
     return query.getResultList();
   }
-
 }

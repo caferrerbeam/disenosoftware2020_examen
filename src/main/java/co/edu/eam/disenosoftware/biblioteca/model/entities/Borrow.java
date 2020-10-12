@@ -28,4 +28,36 @@ public class Borrow implements Serializable {
 
   public Borrow() {
   }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public Date getDateTime() {
+    return dateTime;
+  }
+
+  public void setDateTime(Date dateTime) {
+    this.dateTime = dateTime;
+  }
+
+  public Book getBook() {
+    return book;
+  }
+
+  public void setBook(Book book) {
+    this.book = book;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
 }
