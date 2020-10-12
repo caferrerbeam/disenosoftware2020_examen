@@ -1,6 +1,15 @@
 package co.edu.eam.disenosoftware.biblioteca.services;
 
+import co.edu.eam.disenosoftware.biblioteca.exceptions.BusinessException;
+import co.edu.eam.disenosoftware.biblioteca.exceptions.ErrorCodesEnum;
+import co.edu.eam.disenosoftware.biblioteca.model.entities.Book;
 import co.edu.eam.disenosoftware.biblioteca.model.entities.Borrow;
+import co.edu.eam.disenosoftware.biblioteca.model.entities.User;
+import co.edu.eam.disenosoftware.biblioteca.repositories.BookRepository;
+import co.edu.eam.disenosoftware.biblioteca.repositories.BorrowRepository;
+import co.edu.eam.disenosoftware.biblioteca.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

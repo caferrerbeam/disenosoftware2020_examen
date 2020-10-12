@@ -10,7 +10,7 @@ public enum ErrorCodesEnum {
   /**
    * example
    */
-  EXAMPLE("")
+  EXAMPLE(""),
   ;
 
   /**

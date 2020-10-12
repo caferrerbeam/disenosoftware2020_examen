@@ -37,7 +37,7 @@ CREATE TABLE libro_autor (
 );
 
 CREATE TABLE prestamo (
-	id int8 NOT NULL,
+	id int8 auto_increment NOT NULL,
 	fecha_prestamo timestamp NULL,
 	id_libro varchar(255) NULL,
 	id_usuario varchar(255) NULL,

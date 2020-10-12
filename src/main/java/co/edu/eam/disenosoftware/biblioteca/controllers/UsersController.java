@@ -1,12 +1,9 @@
 package co.edu.eam.disenosoftware.biblioteca.controllers;
 
 import co.edu.eam.disenosoftware.biblioteca.model.entities.Borrow;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
-//el path de este controller esta en Routes.USERS_URL
 public class UsersController {
 
   /**
@@ -15,10 +12,12 @@ public class UsersController {
    * URL: /api/users/{userId}/borrows
    * Params: path = userId
    * Returns: 200 Ok, with list of borrows
-   *
+   * <p>
    * Qualification: 1 unit test associated with this method in UserControllerTest
    */
-  public List<Borrow> getBorrowsByUser() {
+
+  public List<Borrow> getBorrowsByUser(String userId) {
     return null;
   }
+
 }
