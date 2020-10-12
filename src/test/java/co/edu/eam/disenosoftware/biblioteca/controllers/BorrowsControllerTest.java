@@ -31,7 +31,7 @@ public class BorrowsControllerTest {
   @Test
   @Sql({"/testdata/borrowBookOkTest.sql"})
   public void testBorrowBookOk() throws Exception {
-    String jsonBody = "{user_id: \"1\" , book_code: \"1\"}";
+    String jsonBody = "{\"userId\":\"1\", \"bookCode\":\"1\"}";
 
     RequestBuilder request = post("/api/borrows")
             .contentType(MediaType.APPLICATION_JSON)
@@ -44,7 +44,7 @@ public class BorrowsControllerTest {
   @Test
   @Sql({"/testdata/borrowRepeatedBookTest.sql"})
   public void borrowRepeatedBookTest() throws Exception {
-    String jsonBody = "{user_id: \"1\" , book_code: \"1\"}";
+    String jsonBody = "{\"userId\":\"1\", \"bookCode\":\"1\"}";
 
     RequestBuilder request = post("/api/borrows")
             .contentType(MediaType.APPLICATION_JSON)
@@ -57,7 +57,7 @@ public class BorrowsControllerTest {
   @Test
   @Sql({"/testdata/borrowsMaximunBooksByUserIdTest.sql"})
   public void borrowsMaximunBooksByUserIdTest() throws Exception {
-    String jsonBody = "{user_id: \"1\" , book_code: \"4\"}";
+    String jsonBody = "{\"userId\":\"1\", \"bookCode\":\"4\"}";
 
     RequestBuilder request = post("/api/borrows")
             .contentType(MediaType.APPLICATION_JSON)
@@ -71,7 +71,7 @@ public class BorrowsControllerTest {
   @Test
   @Sql({"/testdata/borrowNotFoundUserTest.sql"})
   public void borrowsNotFoundUserTest() throws Exception {
-    String jsonBody = "{user_id: \"2\" , book_code: \"1\"}";
+    String jsonBody = "{\"userId\":\"2\", \"bookCode\":\"1\"}";
 
     RequestBuilder request = post("/api/borrows")
             .contentType(MediaType.APPLICATION_JSON)
@@ -84,7 +84,7 @@ public class BorrowsControllerTest {
   @Test
   @Sql({"/testdata/borrowNotFoundBookTest.sql"})
   public void borrowNotFoundBookTest() throws Exception {
-    String jsonBody = "{user_id: \"1\" , book_code: \"3\"}";
+    String jsonBody = "{\"userId\":\"1\", \"bookCode\":\"3\"}";
 
     RequestBuilder request = post("/api/borrows")
             .contentType(MediaType.APPLICATION_JSON)

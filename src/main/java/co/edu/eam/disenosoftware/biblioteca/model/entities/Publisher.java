@@ -19,4 +19,20 @@ public class Publisher implements Serializable {
 
   public Publisher() {
   }
+
+  public Long getCode() {
+    return code;
+  }
+
+  public void setCode(Long code) {
+    this.code = code;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
 }

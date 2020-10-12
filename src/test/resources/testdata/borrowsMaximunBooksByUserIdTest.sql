@@ -12,7 +12,7 @@ INSERT INTO libro (codigo_libro, isbn_libro, nombre_libro, id_editorial) VALUES(
 INSERT INTO libro_autor (id, id_autor, id_libro) VALUES(1, 1, '1');
 INSERT INTO libro_autor (id, id_autor, id_libro) VALUES(2, 1, '2');
 INSERT INTO libro_autor (id, id_autor, id_libro) VALUES(3, 1, '3');
-INSERT INTO libro_autor (id, id_autor, id_libro) VALUES(3, 1, '4');
+INSERT INTO libro_autor (id, id_autor, id_libro) VALUES(4, 1, '4');
 
 INSERT INTO prestamo (id, fecha_prestamo, id_libro, id_usuario) VALUES(1, '2020-01-01', '1', '1');
 INSERT INTO prestamo (id, fecha_prestamo, id_libro, id_usuario) VALUES(2, '2020-01-01', '2', '1');

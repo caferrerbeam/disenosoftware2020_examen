@@ -10,7 +10,11 @@ public enum ErrorCodesEnum {
   /**
    * example
    */
-  EXAMPLE("")
+  EXAMPLE(""),
+  USER_NOT_FOUND("0001", HttpStatus.NOT_FOUND),
+  BOOK_NOT_FOUND("0002",HttpStatus.NOT_FOUND),
+  MAX_BORROWS("0004",HttpStatus.PRECONDITION_FAILED),
+  REPEATED_BOOK("0003", HttpStatus.PRECONDITION_FAILED)
   ;
 
   /**

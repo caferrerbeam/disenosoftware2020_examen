@@ -2,6 +2,8 @@ package co.edu.eam.disenosoftware.biblioteca.model.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,7 +14,9 @@ import java.util.Date;
 @Entity
 @Table(name = "prestamo")
 public class Borrow implements Serializable {
+
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "fechaPrestamo")
@@ -27,6 +31,7 @@ public class Borrow implements Serializable {
   private User user;
 
   public Borrow() {
+    dateTime = new Date();
   }
 
   public Long getId() {
