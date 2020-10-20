@@ -10,8 +10,10 @@ public enum ErrorCodesEnum {
   /**
    * example
    */
-  EXAMPLE(""),
-  ;
+  NOT_FOUND_USER("0001",HttpStatus.NOT_FOUND),
+  NOT_FOUND_BOOK("0002",HttpStatus.NOT_FOUND),
+  BOOK_ALREADY_IN_USER("0003",HttpStatus.PRECONDITION_FAILED),
+  MORE_THAN_3_BOOKS("0004",HttpStatus.PRECONDITION_FAILED);
 
   /**
    * error code
