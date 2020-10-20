@@ -11,12 +11,29 @@ import co.edu.eam.disenosoftware.biblioteca.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Borrow service
  */
+@Service
+@Transactional
 public class BorrowService {
+
+  @Autowired
+  private BookRepository repository;
+
+  @Autowired
+  private UserRepository userRepository;
+
+  @Autowired
+  private BorrowRepository borrowRepository;
+
+
+
 
   /**
    * Punto 1: prestar libro
@@ -34,6 +51,41 @@ public class BorrowService {
    */
   public void borrowBook(String bookCode, String userIdentification) {
 
+    User user=userRepository.find(userIdentification);
+
+    if(user==null) {
+
+      throw new BusinessException("El nombre de la category esta en uso", ErrorCodesEnum.USER_NOT_FOUND);
+
+    }
+
+    Book book=repository.find(bookCode);
+
+    if(book==null) {
+
+      throw new BusinessException("El nombre de la category esta en uso", ErrorCodesEnum.BOOK_NOT_FOUND);
+
+    }
+
+    List<Borrow>Pedro=borrowRepository.getBorrowsByUserId(userIdentification);
+
+
+    for (Borrow borrow:Pedro) {
+
+      if(borrow.getBook().getCode().equals(bookCode)){
+        throw new BusinessException("El libro ya esta en la lista de prestamos", ErrorCodesEnum.BOOK_IS_ALREADY_BORROW);
+      }
+
+    }
+    if(Pedro.size()>=3){
+
+      throw new BusinessException("El usuario tiene mas de 3 libros prestados", ErrorCodesEnum.USER_HAS_MORE_THAN_3_BORROW_BOOKS);
+
+    }
+
+    Borrow borrow=new Borrow(new Date(),book,user);
+    borrowRepository.create(borrow);
+
   }
 
   /**
@@ -44,7 +96,7 @@ public class BorrowService {
    * Qualification: 1 unit tests associated with this method in BorrrowServiceTest
    */
   public List<Borrow> getBorrrowsByUser(String userIdentification) {
-    return null;
+    return borrowRepository.getBorrowsByUserId(userIdentification);
   }
 
 }
