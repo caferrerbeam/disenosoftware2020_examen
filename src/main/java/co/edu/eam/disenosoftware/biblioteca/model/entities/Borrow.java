@@ -65,4 +65,10 @@ public class Borrow implements Serializable {
   public void setUser(User user) {
     this.user = user;
   }
+
+  public Borrow(Date dateTime, Book book, User user) {
+    this.dateTime = dateTime;
+    this.book = book;
+    this.user = user;
+  }
 }

@@ -10,8 +10,13 @@ public enum ErrorCodesEnum {
   /**
    * example
    */
-  EXAMPLE(""),
-  ;
+  USER_NOT_FOUND("0001", HttpStatus.NOT_FOUND),
+
+  BOOK_NOT_FOUND("0002", HttpStatus.NOT_FOUND),
+
+  BOOK_IS_ALREADY_BORROW("0003", HttpStatus.PRECONDITION_FAILED),
+
+  USER_HAS_MORE_THAN_3_BORROW_BOOKS("0004", HttpStatus.PRECONDITION_FAILED);
 
   /**
    * error code
