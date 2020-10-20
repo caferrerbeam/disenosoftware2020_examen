@@ -11,6 +11,10 @@ public enum ErrorCodesEnum {
    * example
    */
   EXAMPLE(""),
+  NOT_FOUND("0001",HttpStatus.NOT_FOUND),
+  NOT_FOUND2("0002",HttpStatus.NOT_FOUND),
+  PRECONDITION_FAILED("0003",HttpStatus.PRECONDITION_FAILED),
+  PRECONDITION_FAILED2("0004",HttpStatus.PRECONDITION_FAILED)
   ;
 
   /**

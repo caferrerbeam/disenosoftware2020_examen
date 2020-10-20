@@ -11,12 +11,25 @@ import co.edu.eam.disenosoftware.biblioteca.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Borrow service
  */
+@Service
+@Transactional
 public class BorrowService {
+
+  @Autowired
+  private UserRepository userRepository;
+
+  @Autowired
+  private BookRepository bookRepository;
+
+  @Autowired
+  private BorrowRepository borrowRepository;
 
   /**
    * Punto 1: prestar libro
@@ -33,7 +46,34 @@ public class BorrowService {
    *   Qualification: 5 unit tests associated with this method in BorrrowServiceTest
    */
   public void borrowBook(String bookCode, String userIdentification) {
+    User user = userRepository.find(userIdentification);
 
+    if (user == null) {
+      throw new BusinessException("El usuario no existe", ErrorCodesEnum.NOT_FOUND);
+    }
+
+    Book book = bookRepository.find(bookCode);
+
+    if (book == null) {
+      throw new BusinessException("El libro no existe", ErrorCodesEnum.NOT_FOUND2);
+    }
+
+    List<Borrow> userBorrow = borrowRepository.getBorrowsByBookId(bookCode);
+
+    for (Borrow borrow:userBorrow) {
+      if (borrow.getBook().getCode().equals(bookCode)) {
+        throw new BusinessException("Este libro ya lo tiene prestado", ErrorCodesEnum.PRECONDITION_FAILED);
+      }
+    }
+
+    List<Borrow> userSizeBorrow = borrowRepository.getBorrowsByUserId(userIdentification);
+
+    if (userSizeBorrow.size() >= 3) {
+      throw new BusinessException("Ya tiene mas de 3 libros prestados", ErrorCodesEnum.PRECONDITION_FAILED2);
+    }
+
+    Borrow borrow = new Borrow(new Date(), book, user);
+    borrowRepository.create(borrow);
   }
 
   /**
@@ -44,7 +84,8 @@ public class BorrowService {
    * Qualification: 1 unit tests associated with this method in BorrrowServiceTest
    */
   public List<Borrow> getBorrrowsByUser(String userIdentification) {
-    return null;
+    List<Borrow> borrows = borrowRepository.getBorrowsByUserId(userIdentification);
+    return borrows;
   }
 
 }
