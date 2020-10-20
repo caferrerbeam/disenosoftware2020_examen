@@ -11,13 +11,19 @@ import co.edu.eam.disenosoftware.biblioteca.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * Borrow service
  */
+@Service
+@Transactional
 public class BorrowService {
 
+  @Autowired
+  private BorrowRepository borrowRepository;
+  private UserRepository userRepository;
   /**
    * Punto 1: prestar libro
    * para prestar libro se deben seguir las siguientes reglas
@@ -34,6 +40,15 @@ public class BorrowService {
    */
   public void borrowBook(String bookCode, String userIdentification) {
 
+    User userName = userRepository.find("user");
+    Borrow borrow = borrowRepository.create(borrow);
+
+    if (userName == null) {
+      throw new BusinessException("NOT_FOUND", ErrorCodesEnum.NOT_FOUND);
+    }
+    if (borrow == null) {
+      throw new BusinessException("NOT_FOUND", ErrorCodesEnum.NOT_FOUND1);
+    }
   }
 
   /**
@@ -46,5 +61,4 @@ public class BorrowService {
   public List<Borrow> getBorrrowsByUser(String userIdentification) {
     return null;
   }
-
 }
