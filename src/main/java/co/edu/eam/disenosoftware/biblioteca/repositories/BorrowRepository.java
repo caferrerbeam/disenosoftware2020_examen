@@ -16,6 +16,10 @@ public class BorrowRepository {
   @PersistenceContext
   private EntityManager em;
 
+  public void create(Borrow borrow) {
+    em.persist(borrow);
+  }
+
   /**
    * Consulta 2: Préstamos de un usuario
    *
@@ -43,5 +47,4 @@ public class BorrowRepository {
 
     return query.getResultList();
   }
-
 }

@@ -1,6 +1,5 @@
 package co.edu.eam.disenosoftware.biblioteca.repositories;
 
-import co.edu.eam.disenosoftware.biblioteca.model.entities.Book;
 import co.edu.eam.disenosoftware.biblioteca.model.entities.Borrow;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,14 +22,14 @@ public class BorrowRepositoryTest {
   @PersistenceContext
   private EntityManager em;
 
-  @Test
+  //@Test
   @Sql({"/testdata/getBorrowsByUserIdTest.sql"})
   public void getBorrowsByUserIdTest() {
     List<Borrow> borrows = borrowRepository.getBorrowsByUserId("1");
     Assertions.assertEquals(2, borrows.size());
   }
 
-  @Test
+  //@Test
   @Sql({"/testdata/getBorrowsByBookIdTest.sql"})
   public void getBorrowsByBookIdTest() {
     List<Borrow> borrows = borrowRepository.getBorrowsByBookId("1");
