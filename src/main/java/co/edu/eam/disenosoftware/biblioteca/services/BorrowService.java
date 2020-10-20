@@ -11,13 +11,25 @@ import co.edu.eam.disenosoftware.biblioteca.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Borrow service
  */
+@Service
+@Transactional
 public class BorrowService {
 
+  @Autowired
+  private UserRepository userRepository;
+
+  @Autowired
+  private BorrowRepository borrowRepository;
+
+  @Autowired
+  private BookRepository bookRepository;
   /**
    * Punto 1: prestar libro
    * para prestar libro se deben seguir las siguientes reglas
@@ -34,6 +46,29 @@ public class BorrowService {
    */
   public void borrowBook(String bookCode, String userIdentification) {
 
+      User user = userRepository.find(userIdentification);
+      if (user == null) {
+        throw new BusinessException("El usuario no existe", ErrorCodesEnum.USER_NOT_FOUND);
+      }
+
+      Book book = bookRepository.find(bookCode);
+      if (book == null) {
+        throw new BusinessException("El usuario no existe", ErrorCodesEnum.BOOK_NOT_FOUND);
+      }
+
+      List<Borrow> borrowList = borrowRepository.getBorrowsByUserId(userIdentification);
+      for (Borrow borrows:borrowList) {
+        if (borrows.getBook().getCode().equals(bookCode)) {
+          throw new BusinessException("El el usuario ya tiene este libro presatado", ErrorCodesEnum.BOOK_ALREADY_BORROWED);
+        }
+      }
+
+      if (borrowList.size()>=3) {
+        throw new BusinessException("El el usuario ya tiene este libro presatado", ErrorCodesEnum.QUANTITY_MORE_THAN_THREE);
+      }
+
+      Borrow borrow = new Borrow(new Date(),book,user);
+      borrowRepository.create(borrow);
   }
 
   /**
@@ -44,7 +79,7 @@ public class BorrowService {
    * Qualification: 1 unit tests associated with this method in BorrrowServiceTest
    */
   public List<Borrow> getBorrrowsByUser(String userIdentification) {
-    return null;
+    List<Borrow> borrowList = borrowRepository.getBorrowsByUserId(userIdentification);
+    return borrowList;
   }
-
 }
