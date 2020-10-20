@@ -1,7 +1,19 @@
 package co.edu.eam.disenosoftware.biblioteca.controllers;
 
+import co.edu.eam.disenosoftware.biblioteca.model.requests.BorrowBookRequest;
+import co.edu.eam.disenosoftware.biblioteca.services.BorrowService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/borrows")
 public class BorrowsController {
 
+  @Autowired
+  private BorrowService borrowService;
 
   /**
    * Punto 3: Borrow a book
@@ -12,7 +24,10 @@ public class BorrowsController {
    * <p>
    * Qualification: 5 unit test associated with this method in BorrowsControllerTest
    */
-  public void borrowBook() {
+
+  @PostMapping
+  public void borrowBook(@RequestBody BorrowBookRequest request) {
+    borrowService.borrowBook(request.getBookCode(), request.getUserId());
   }
 
 }
