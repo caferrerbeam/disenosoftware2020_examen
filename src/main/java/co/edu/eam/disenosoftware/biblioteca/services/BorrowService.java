@@ -10,13 +10,25 @@ import co.edu.eam.disenosoftware.biblioteca.repositories.BorrowRepository;
 import co.edu.eam.disenosoftware.biblioteca.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
  * Borrow service
  */
+@Service
+@Transactional
 public class BorrowService {
+  @Autowired
+  private UserRepository userRepository;
+
+  @Autowired
+  private BookRepository bookRepository;
+
+  @Autowired
+  private BorrowRepository borrowRepository;
 
   /**
    * Punto 1: prestar libro
@@ -34,6 +46,31 @@ public class BorrowService {
    */
   public void borrowBook(String bookCode, String userIdentification) {
 
+    User user = userRepository.find(userIdentification);
+    if (user == null){
+      throw new BusinessException("El usuario no existe",ErrorCodesEnum.USER_NOT_FOUND);
+    }
+
+    Book book = bookRepository.find(bookCode);
+
+    if (book == null){
+      throw new BusinessException("El libro no existe",ErrorCodesEnum.BOOK_NOT_FOUND);
+    }
+
+    List<Borrow> bookBorrow = borrowRepository.getBorrowsByUserId(userIdentification);
+
+    for (Borrow borrows:bookBorrow) {
+      if (borrows.getBook().getCode().equals(bookCode)){
+        throw new BusinessException("El libro ya está prestado",ErrorCodesEnum.BOOK_ALREADY_BORROWED);
+      }
+    }
+
+    if (bookBorrow.size() == 3) {
+      throw new BusinessException("Al usuario ya se le ha prestado más de tres libros",ErrorCodesEnum.LIMIT_OF_BOOKS);
+    }
+
+    borrowRepository.create(new Borrow(new Date(),book,user));
+
   }
 
   /**
@@ -44,7 +81,7 @@ public class BorrowService {
    * Qualification: 1 unit tests associated with this method in BorrrowServiceTest
    */
   public List<Borrow> getBorrrowsByUser(String userIdentification) {
-    return null;
+    return borrowRepository.getBorrowsByUserId(userIdentification);
   }
 
 }
