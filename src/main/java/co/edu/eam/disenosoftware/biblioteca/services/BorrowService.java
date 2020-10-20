@@ -11,13 +11,25 @@ import co.edu.eam.disenosoftware.biblioteca.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Borrow service
  */
+@Service
+@Transactional
 public class BorrowService {
 
+  @Autowired
+  private UserRepository userRepository;
+
+  @Autowired
+  private BookRepository bookRepository;
+
+  @Autowired
+  private BorrowRepository borrowRepository;
   /**
    * Punto 1: prestar libro
    * para prestar libro se deben seguir las siguientes reglas
@@ -33,7 +45,25 @@ public class BorrowService {
    *   Qualification: 5 unit tests associated with this method in BorrrowServiceTest
    */
   public void borrowBook(String bookCode, String userIdentification) {
-
+    User user = userRepository.find(userIdentification);
+    if(user==null){
+      throw new BusinessException("El usuario no existe",ErrorCodesEnum.USER_NOT_FOUND);
+    }
+    Book book = bookRepository.find(bookCode);
+    if(book == null){
+      throw new BusinessException("El libro no existe", ErrorCodesEnum.BOOK_NOT_FOUND);
+    }
+    List<Borrow>list = borrowRepository.getBorrowsByUserId(userIdentification);
+    for(Borrow borrow:list){
+      if(borrow.getBook().getCode().equals(bookCode)){
+        throw new BusinessException("El usuario ya tiene el libro", ErrorCodesEnum.USER_HAVE_THAT_BOOK);
+      }
+    }
+    if(list.size()>=3){
+      throw new BusinessException("El usuario tiene el maximo de libros", ErrorCodesEnum.USER_HAVE_MORE_THREE_BOOKS);
+    }
+    Borrow borrow=new Borrow(new Date(),book,user);
+    borrowRepository.create(borrow);
   }
 
   /**
@@ -44,7 +74,7 @@ public class BorrowService {
    * Qualification: 1 unit tests associated with this method in BorrrowServiceTest
    */
   public List<Borrow> getBorrrowsByUser(String userIdentification) {
-    return null;
+    return borrowRepository.getBorrowsByUserId(userIdentification);
   }
 
 }

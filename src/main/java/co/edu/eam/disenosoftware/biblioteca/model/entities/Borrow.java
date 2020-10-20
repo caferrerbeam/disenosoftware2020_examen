@@ -30,6 +30,12 @@ public class Borrow implements Serializable {
   @JoinColumn(name = "id_usuario", referencedColumnName = "user_identification")
   private User user;
 
+  public Borrow(Date dateTime, Book book, User user) {
+    this.dateTime = dateTime;
+    this.book = book;
+    this.user = user;
+  }
+
   public Borrow() {
     dateTime = new Date();
   }
