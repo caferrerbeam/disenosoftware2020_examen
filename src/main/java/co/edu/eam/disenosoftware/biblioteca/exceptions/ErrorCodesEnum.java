@@ -11,6 +11,10 @@ public enum ErrorCodesEnum {
    * example
    */
   EXAMPLE(""),
+  NOT_FOUND("0001"),
+  NOT_FOUND1("0002"),
+  PRECONDITION_FAILED("0003"),
+  PRECONDITION_FAILED1("0004"),
   ;
 
   /**
